@@ -7,6 +7,7 @@ pipeline {
     tools {
         jdk 'Java'
         nodejs 'nodejs'
+        dockerTool 'Test_Docker'
     }
     environment {
         registry = 'tarungarg1208/nagp-exam-1'
