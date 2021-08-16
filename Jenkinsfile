@@ -38,7 +38,7 @@ pipeline {
         stage('Sonar Analysis') {
             steps {
                 echo 'SONAR Analysis'
-            // bat "..\\..\\tools\\hudson.plugins.sonar.SonarRunnerInstallation\\SonarQubeScanner\\bin\\sonar-scanner.bat -Dsonar.host.url=http://localhost:9000 -Dsonar.login=658cd6afba259bd114439d623d10e01af79523cc"
+            bat "..\\..\\tools\\hudson.plugins.sonar.SonarRunnerInstallation\\SonarQubeScanner\\bin\\sonar-scanner.bat -Dsonar.host.url=http://localhost:9000 -Dsonar.login=658cd6afba259bd114439d623d10e01af79523cc"
             }
         }
         stage('Building Docker Image') {
@@ -80,7 +80,13 @@ pipeline {
                 },
                 'Kubetnetes Deployment': {
                     echo 'Deploying onto kubernetes'
-                    step([$class:'KubernetesEngineBuilder', projectId:${ PROJECT_ID }, clusterName:${ CLUSTER }, clusterName:${ LOCATION }, manifestPattern:'k8s/deployment.yaml', credentialsId:${ CREDENTIALS }, verifyDeployments:false])
+                    step([$class: 'KubernetesEngineBuilder',
+                        projectId: env.PROJECT_ID,
+                        clusterName: env.CLUSTER,
+                        zone: env.LOCATION,
+                        manifestPattern: 'k8s/deployment.yaml',
+                        credentialsId: env.CREDENTIALS,
+                        verifyDeployments: false])
                 }
                 )
             // Deploying on docker and kubernetes in parallel
