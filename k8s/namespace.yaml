@@ -1,0 +1,6 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: kubernetes-ns-tarungarg02
+  labels:
+    name: kubernetes-ns-tarungarg02

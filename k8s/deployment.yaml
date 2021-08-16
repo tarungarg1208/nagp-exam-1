@@ -1,0 +1,38 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: node-app-deployment
+  namespace: kubernetes-ns-tarungarg02
+  labels:
+    app: node-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels: 
+      app: node-app-deployment
+  template:
+    metadata:
+      labels:
+        app: node-app-deployment
+    spec:
+      containers:
+        - name : node-app-deployment
+          image : tarungarg1208/nagp-exam-1:latest
+          ports:
+            - containerPort: 7100
+              protocol: TCP
+              name: http
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: node-app-service
+  namespace: kubernetes-ns-tarungarg02
+spec:
+  type: LoadBalancer
+  selector:
+    app: node-app-deployment
+  ports:
+    - port: 80
+      targetPort: 7100
+
