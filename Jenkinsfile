@@ -22,8 +22,8 @@ pipeline {
         stage('checkout code') {
             steps {
                 echo 'Fetching Code from SCM'
-                checkout scm
-                // checkout([$class: 'GitSCM', branches: [[name: '*/feature']], extensions: [], userRemoteConfigs: [[credentialsId: '70c8e005-4a66-4653-b36f-7cb529170c6a', url: 'https://github.com/tarungarg1208/nagp-exam-1.git']]])
+                // checkout scm
+                checkout([$class: 'GitSCM', branches: [[name: '*/feature']], extensions: [], userRemoteConfigs: [[credentialsId: '70c8e005-4a66-4653-b36f-7cb529170c6a', url: 'https://github.com/tarungarg1208/nagp-exam-1.git']]])
             }
         }
         stage('Build') {
